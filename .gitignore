@@ -1,3 +1,4 @@
 dist/
 venv/
 src/pyAMT.egg-info/
+src/__pycache__
