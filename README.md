@@ -15,7 +15,7 @@ amt.departures("0360")
 amt.stop("0395")
 
 #get information about a line
-print(amt.line("15"))
+amt.line("15")
 
 # add "_1" for Start->End and "_2" for End->Start
 amt.lineStops("015-00_1")
