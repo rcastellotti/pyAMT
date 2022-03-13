@@ -1,12 +1,14 @@
 # pyAMT 
-[![PyPI version](https://badge.fury.io/py/pyAMT.svg)](https://badge.fury.io/py/pyAMT)  
+[![PyPI version](https://badge.fury.io/py/pyAMT.svg)](https://badge.fury.io/py/pyAMT) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+
 An unofficial python API wrapper for [AMT's](https://www.amt.genova.it/) (public transportation for my city) undocumented API. Endpoints were obtained examining the [official android application](https://play.google.com/store/apps/details?id=it.genova.amt.app), I am not in any way affiliated with [AMT](https://www.amt.genova.it/).
 
 ## Installation
 
 Install with `pip3 install pyAMT`
 
-Example usage:
+## Usage
 ```py
 from pyAMT import AMT
 
@@ -27,7 +29,6 @@ amt.lineStops("015-00_1")
 # get detailed information about a line (including timetables)
 amt.linesDetailedInfo("15","13","03","2022")
 ```
-
 
 
 Build for [test.pypi.org](https://test.pypi.org/simple/):

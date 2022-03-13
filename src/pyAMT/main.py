@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 import xmltodict
 import re
+from enum import Enum
 
 
 class Line:
@@ -50,6 +51,7 @@ class Arrival:
     def __repr__(self):
         return str(self.__dict__)
 
+
 class Stop:
     def __init__(
         self, lineName, destination, expectedArrivalTime, socialNumber, waitTime
@@ -64,6 +66,30 @@ class Stop:
         return str(self.__dict__)
 
 
+class Linea(Enum):
+    LINEA = 0
+    DESTINAZIONE = 1
+    TEORICA = 2
+    PREVISIONE_PARTENZA = 3
+    ORA_ARRIVO = 4
+    PREVISIONE_ARRIVO = 5
+    NUMERO_SOCIALE = 6
+    CONTEGGIO_PASSEGGERI = 7
+    AUTOBUS_PIENO = 8
+
+
+class LineNotFound(Exception):
+    pass
+
+
+class StopNotFound(Exception):
+    pass
+
+
+class LineStopsNotFound(Exception):
+    pass
+
+
 class AMT:
     PASSAGGI_URL = "https://www.amt.genova.it/amt/servizi/passaggi_xml.php"
     STOPS_URL = "https://www.amt.genova.it/amt/servizi/app/dati/app_stops.php"
@@ -73,15 +99,6 @@ class AMT:
     )
     LINE_URL = "https://www.amt.genova.it/amt/servizi/orari_xml.php"
 
-    class LineNotFound(Exception):
-        pass
-
-    class StopNotFound(Exception):
-        pass
-
-    class LineStopsNotFound(Exception):
-        pass
-
     def __init__(self):
         self._lines = requests.get(self.LINES_URL)
         self._lineStops = requests.get(self.LINES_STOPS_URL)
@@ -89,15 +106,6 @@ class AMT:
         pass
 
     def departures(self, codiceFermata: str):
-        LINEA = 0
-        DESTINAZIONE = 1
-        TEORICA = 2
-        PREVISIONE_PARTENZA = 3
-        ORA_ARRIVO = 4
-        PREVISIONE_ARRIVO = 5
-        NUMERO_SOCIALE = 6
-        CONTEGGIO_PASSEGGERI = 7
-        AUTOBUS_PIENO = 8
 
         arrivals = []
 
@@ -105,11 +113,11 @@ class AMT:
         tree = ET.fromstring(r.content)
         for child in tree:
             arrival = Arrival(
-                child[LINEA].text,
-                child[DESTINAZIONE].text,
-                child[ORA_ARRIVO].text,
-                child[PREVISIONE_ARRIVO].text,
-                child[NUMERO_SOCIALE].text,
+                child[Linea.LINEA].text,
+                child[Linea.DESTINAZIONE].text,
+                child[Linea.ORA_ARRIVO].text,
+                child[Linea.PREVISIONE_ARRIVO].text,
+                child[Linea.NUMERO_SOCIALE].text,
             )
             arrivals.append(arrival)
         return arrivals
@@ -147,12 +155,12 @@ class AMT:
 
     def linesDetailedInfo(
         self,
-        lineName:str,
+        lineName: str,
         gg=datetime.today().strftime("%d"),
         mm=datetime.today().strftime("%m"),
         aa=datetime.today().strftime("%Y"),
     ) -> list[Line]:
-    
+
         """get detailed information about a line (including timetables)
 
         Arguments:
