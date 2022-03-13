@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pyAMT
-Version: 0.0.226
+Version: 0.0.1
 Summary: An unofficial wrapper for AMT Genova undocumented API
 Home-page: https://github.com/rcastellotti/pyAMT
 Author: Roberto Castellotti

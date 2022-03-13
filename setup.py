@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pyAMT",
-    version="0.0.226",
+    version="0.0.1",
     author="Roberto Castellotti",
     author_email="me@rcastellotti.dev",
     description="An unofficial wrapper for AMT Genova undocumented API",
