@@ -29,14 +29,3 @@ amt.lineStops("015-00_1")
 # get detailed information about a line (including timetables)
 amt.linesDetailedInfo("15","13","03","2022")
 ```
-
-
-Build for [test.pypi.org](https://test.pypi.org/simple/):
-```
-python3 -m build
-python3 -m twine upload --repository testpypi dist/*
-```
-Install test:
-```
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pyAMT
-```
