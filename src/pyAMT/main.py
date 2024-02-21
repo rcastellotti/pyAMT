@@ -115,11 +115,11 @@ class AMT:
         tree = ET.fromstring(r.content)
         for child in tree:
             arrival = Arrival(
-                child[Linea.LINEA].text,
-                child[Linea.DESTINAZIONE].text,
-                child[Linea.ORA_ARRIVO].text,
-                child[Linea.PREVISIONE_ARRIVO].text,
-                child[Linea.NUMERO_SOCIALE].text,
+                child[Linea.LINEA.value].text,
+                child[Linea.DESTINAZIONE.value].text,
+                child[Linea.ORA_ARRIVO.value].text,
+                child[Linea.PREVISIONE_ARRIVO.value].text,
+                child[Linea.NUMERO_SOCIALE.value].text,
             )
             arrivals.append(arrival)
         return arrivals
