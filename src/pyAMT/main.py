@@ -31,8 +31,10 @@ class Line:
         self.firstStopAscLocation, self.lastStopAscLocation = re.split(
             r"\s-+>\s", firstLastString
         )
-        self.firstStopAscDepartures = firstStopAscDepartures.split()
-        self.firstStopDiscDepartures = firstStopDiscDepartures.split()
+        if firstStopAscDepartures:
+            self.firstStopAscDepartures = firstStopAscDepartures.split()
+        if firstStopDiscDepartures:
+            self.firstStopDiscDepartures = firstStopDiscDepartures.split()
 
     def __repr__(self):
         return str(self.__dict__)
