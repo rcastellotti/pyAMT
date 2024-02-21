@@ -31,8 +31,10 @@ class Line:
         self.firstStopAscLocation, self.lastStopAscLocation = re.split(
             r"\s-+>\s", firstLastString
         )
-        self.firstStopAscDepartures = firstStopAscDepartures.split()
-        self.firstStopDiscDepartures = firstStopDiscDepartures.split()
+        if firstStopAscDepartures:
+            self.firstStopAscDepartures = firstStopAscDepartures.split()
+        if firstStopDiscDepartures:
+            self.firstStopDiscDepartures = firstStopDiscDepartures.split()
 
     def __repr__(self):
         return str(self.__dict__)
@@ -113,11 +115,11 @@ class AMT:
         tree = ET.fromstring(r.content)
         for child in tree:
             arrival = Arrival(
-                child[Linea.LINEA].text,
-                child[Linea.DESTINAZIONE].text,
-                child[Linea.ORA_ARRIVO].text,
-                child[Linea.PREVISIONE_ARRIVO].text,
-                child[Linea.NUMERO_SOCIALE].text,
+                child[Linea.LINEA.value].text,
+                child[Linea.DESTINAZIONE.value].text,
+                child[Linea.ORA_ARRIVO.value].text,
+                child[Linea.PREVISIONE_ARRIVO.value].text,
+                child[Linea.NUMERO_SOCIALE.value].text,
             )
             arrivals.append(arrival)
         return arrivals
